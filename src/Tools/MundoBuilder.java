@@ -57,13 +57,12 @@ public class MundoBuilder {
             mapa[x][y].setSimbolo(' ');
             mapa[x][y].setBloqueado(false);
         }
-
         return this;
     }
 
     // Método que adiciona criaturas no mapa
     // @quantidadeCriaturas : número de criaturas que queremos colocar no mapa
-    public MundoBuilder criarCriaturas(int qtdZumbie, int qtdCarneiro, int qtdLobo) {
+    public MundoBuilder criarCriaturas(int qtdZumbie, int qtdOvelha, int qtdLobo) {
         int x, y;
         // Cria N criaturas
         for (int i = 0; i < qtdZumbie; i++) {
@@ -78,7 +77,7 @@ public class MundoBuilder {
             Entidade zumbi = new Zumbi(new Ponto2D(x, y)); 
             entidades.add(zumbi);
         }
-        for (int i = 0; i < qtdCarneiro; i++) {
+        for (int i = 0; i < qtdOvelha; i++) {
 
             // Impede que uma criatura seja criada em cima de uma parede
             do {
@@ -120,8 +119,8 @@ public class MundoBuilder {
                 x = (int) (Math.random() * 1000 % largura);
                 y = (int) (Math.random() * 1000 % altura);
             } while (mapa[x][y].isBloqueado());
-            Entidade key = new Chave(new Ponto2D(x, y)); 
-            entidades.add(key);
+            Entidade chave = new Chave(new Ponto2D(x, y)); 
+            entidades.add(chave);
             
             for (int i = 0; i < qtdTesouro; i++) {
 
@@ -135,8 +134,6 @@ public class MundoBuilder {
             Entidade tesouro = new Tesouro(new Ponto2D(x, y)); 
             entidades.add(tesouro);
         }
-        
-        
         return this;
     }
     

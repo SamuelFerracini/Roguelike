@@ -1,8 +1,7 @@
 package Characters;
 
 import Map.Mundo;
-import Class.Ponto2D;
-import Class.Personagem;
+import Class.*;
 import java.util.Scanner;
 import Entidades.Chave;
 
@@ -14,20 +13,35 @@ public class Jogador extends Personagem {
     private Scanner entrada;
     private int ouro;
     private int andar;
-    
-    public Jogador(int vidas, Ponto2D posicao, char simbolo) {
-        super(posicao, simbolo);
+    private int escudo;
+    public static final char SIMBOLO = 'J';
+
+    public Jogador(int vidas, Ponto2D posicao) {
+        super(posicao, SIMBOLO);
         this.vidas = vidas;
         this.passos = 0;
         this.temChave = false;
         this.ouro = 0;
         this.andar = 1;
+        this.escudo = 1;
         this.entrada = new Scanner(System.in);
     }
     
-    public boolean temChave(){
-        if(temChave)
+    public Jogador(int vidas, Ponto2D posicao, int ouro, int andar, int escudo) {
+        super(posicao, 'J');
+        this.vidas = vidas;
+        this.passos = 0;
+        this.temChave = false;
+        this.escudo = escudo;
+        this.ouro = ouro;
+        this.andar = andar;
+        this.entrada = new Scanner(System.in);
+    }
+
+    public boolean temChave() {
+        if (temChave) {
             return true;
+        }
         return false;
     }
 
@@ -36,7 +50,11 @@ public class Jogador extends Personagem {
     }
 
     public void tomarDano(int dano) {
-        vidas -= dano;
+        if(escudo > 0){
+            escudo -= dano;
+        }else{
+                vidas -= dano;
+        }
     }
 
     @Override
@@ -59,28 +77,40 @@ public class Jogador extends Personagem {
         passos++;
     }
 
-    public void pegaChave() {
+    public void setChave() {
         temChave = true;
     }
-    
-    public String getChave(){
+
+    public String getChave() {
         return Boolean.toString(temChave);
     }
+
+    public void setTesouro() {
+        this.ouro += (int) Math.round(Math.random() * 1000);
+    }
+
+    public int getVidas() {
+        return this.vidas;
+    }
+
+    public int getOuro() {
+        return this.ouro;
+    }
+
+    public int getAndar() {
+        return this.andar;
+    }
+
+    public void setAndar() {
+        this.andar += 1;
+    }
+
+    public int getEscudo() {
+        return this.escudo;
+    }
     
-    public void pegaTesouro(){
-        this.ouro += (int)Math.round(Math.random() * 1000);
-    }
-
-    public String getVidas() {
-        return Integer.toString(vidas);
-    }
-
-    public String getOuro() {
-          return Integer.toString(ouro);
-    }
-
-    public String getAndar() {
-        return Integer.toString(andar);
+    public void setEscudo(int valorEscudo){
+        this.escudo += valorEscudo;
     }
 
 }

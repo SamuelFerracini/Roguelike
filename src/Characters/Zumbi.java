@@ -1,11 +1,15 @@
 package Characters;
 
+import Class.Entidade;
 import Map.Mundo;
 import Class.Ponto2D;
 import Class.Personagem;
+import Entidades.Chave;
+import Entidades.Portal;
+import Entidades.Tesouro;
 
 public class Zumbi extends Personagem {
-    
+
     public static final char SIMBOLO = 'Z';
     private static final int FICAR_PARADO = 0;
     private static final int MOVER_BAIXO = 1;
@@ -18,7 +22,6 @@ public class Zumbi extends Personagem {
         super(posicao, SIMBOLO);
     }
 
- 
 //    @Override
 //    public void atualizar(Mundo mundo) {
 //        int direcao = (int)(Math.random() * 1000) % 5;
@@ -31,26 +34,39 @@ public class Zumbi extends Personagem {
 //        if (direcao == 4)
 //            mover(mundo, 1, 0);
 //    }
-    
     @Override
     public void atualizar(Mundo mundo) {
 
-        // criar um número aleatório entre 0 e 100,
-        // logo em seguida, calcula o resto da divisão por 5, 
-        // ou seja, só podemos ter os seguintes valores: 0, 1, 2, 3 e 4
-        int direcao = (int) (Math.random() * 1000 % QUANTIDADE_MOVIMENTOS);
+        int somaZumbi = this.posicao.getX() + this.posicao.getY();
+        int diferenca = 1000000;
+        Entidade alvo = new Entidade();
 
-        // desloca a criatura conforme o valor aleatório gerado
-        if (direcao == FICAR_PARADO) {
-            mover(mundo, 0, 0);
-        } else if (direcao == MOVER_BAIXO) {
-            mover(mundo, 0, 1);
-        } else if (direcao == MOVER_CIMA) {
-            mover(mundo, 0, -1);
-        } else if (direcao == MOVER_DIREITA) {
-            mover(mundo, 1, 0);
-        } else if (direcao == MOVER_ESQUERDA) {
-            mover(mundo, -1, 0);
+        for (Entidade entidade : mundo.getEntidades()) {
+            if (entidade.getSimbolo() != Zumbi.SIMBOLO && entidade.getSimbolo() != Tesouro.SIMBOLO && entidade.getSimbolo() != Chave.SIMBOLO && entidade.getSimbolo() != Portal.SIMBOLO) {
+                if (diferenca > Math.abs(entidade.posicao.getX() + entidade.posicao.getY() - somaZumbi)) {
+                    alvo = entidade;
+                    diferenca = Math.abs(entidade.posicao.getX() + entidade.posicao.getY() - somaZumbi);
+                }
+            }
+        }
+
+        if (diferenca > Math.abs(mundo.getJogador().posicao.getX() + mundo.getJogador().posicao.getY() - somaZumbi)) {
+            alvo = mundo.getJogador();
+            diferenca = Math.abs(mundo.getJogador().posicao.getX() + mundo.getJogador().posicao.getY() - somaZumbi);
+        }
+
+        if (Math.abs(alvo.posicao.getX() - this.posicao.getX()) != 0) {
+            if (alvo.posicao.getX() < this.posicao.getX()) {
+                mover(mundo, -1, 0);
+            } else {
+                mover(mundo, 1, 0);
+            }
+        } else {
+            if (alvo.posicao.getY() < this.posicao.getY()) {
+                mover(mundo, 0, -1);
+            } else {
+                mover(mundo, 0, 1);
+            }
         }
     }
 }

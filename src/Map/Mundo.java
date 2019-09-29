@@ -1,6 +1,5 @@
 package Map;
 
-
 import Map.Celula;
 import java.util.HashMap;
 import java.util.List;
@@ -25,10 +24,18 @@ public class Mundo {
     }
 
     public boolean bloqueado(int x, int y) {
-        return mapa[x][y].isBloqueado();
+        return this.mapa[x][y].isBloqueado();
     }
 
-    public void atualizar() {
+    public List<Entidade> getEntidades() {
+        return this.entidades;
+    }
+
+    public Jogador getJogador() {
+        return this.jogador;
+    }
+
+    public int atualizar() {
         jogador.atualizar(this);
         Entidade removeEntidade = new Entidade();
         for (Entidade entidade : entidades) {
@@ -36,29 +43,35 @@ public class Mundo {
             if (entidade.posicao.getX() == jogador.posicao.getX()
                     && entidade.posicao.getY() == jogador.posicao.getY() && (entidade.getSimbolo() == Zumbi.SIMBOLO || entidade.getSimbolo() == Lobo.SIMBOLO)) {
                 jogador.tomarDano(1);
+                removeEntidade = entidade;
             }
             if (entidade.posicao.getX() == jogador.posicao.getX()
                     && entidade.posicao.getY() == jogador.posicao.getY() && entidade.getSimbolo() == Chave.SIMBOLO) {
-                jogador.pegaChave();
+                jogador.setChave();
                 removeEntidade = entidade;
             }
             if (entidade.posicao.getX() == jogador.posicao.getX()
                     && entidade.posicao.getY() == jogador.posicao.getY() && entidade.getSimbolo() == Portal.SIMBOLO && jogador.temChave()) {
+                jogador.setAndar();
+                return 2;
+
             }
             if (entidade.posicao.getX() == jogador.posicao.getX()
                     && entidade.posicao.getY() == jogador.posicao.getY() && entidade.getSimbolo() == Tesouro.SIMBOLO) {
-                jogador.pegaTesouro();
+                jogador.setTesouro();
                 removeEntidade = entidade;
             }
 
         }
         entidades.remove(removeEntidade);
+        return 0;
     }
 
     public void desenhar() {
 
         // Criar um mapa de criaturas baseado em suas posições
         System.out.println("Vidas: " + jogador.getVidas());
+        System.out.println("Escudo: " + jogador.getEscudo());
         System.out.println("Ouro: " + jogador.getOuro());
         System.out.println("Andar: " + jogador.getAndar());
         System.out.println("Chave: " + jogador.getChave());
