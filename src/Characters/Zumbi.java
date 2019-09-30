@@ -57,16 +57,30 @@ public class Zumbi extends Personagem {
 
         if (Math.abs(alvo.posicao.getX() - this.posicao.getX()) != 0) {
             if (alvo.posicao.getX() < this.posicao.getX()) {
-                mover(mundo, -1, 0);
+                if (!mundo.bloqueado(this.posicao.getX() - 1, this.posicao.getY())) {
+                    mover(mundo, -1, 0);
+                    return;
+                }
             } else {
-                mover(mundo, 1, 0);
+                if (!mundo.bloqueado(this.posicao.getX() + 1, this.posicao.getY())) {
+                    mover(mundo, +1, 0);
+                    return;
+                }
             }
-        } else {
+        }
+        if (Math.abs(alvo.posicao.getY() - this.posicao.getY()) != 0) {
             if (alvo.posicao.getY() < this.posicao.getY()) {
-                mover(mundo, 0, -1);
+                if (!mundo.bloqueado(this.posicao.getX(), this.posicao.getY() - 1)) {
+                    mover(mundo, 0, -1);
+                    return;
+                }
             } else {
-                mover(mundo, 0, 1);
+                if (!mundo.bloqueado(this.posicao.getX(), this.posicao.getY() + 1)) {
+                    mover(mundo, 0, +1);
+                    return;
+                }
             }
         }
     }
+
 }

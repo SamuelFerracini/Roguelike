@@ -40,27 +40,49 @@ public class Mundo {
         Entidade removeEntidade = new Entidade();
         for (Entidade entidade : entidades) {
             entidade.atualizar(this);
-            if (entidade.posicao.getX() == jogador.posicao.getX()
-                    && entidade.posicao.getY() == jogador.posicao.getY() && (entidade.getSimbolo() == Zumbi.SIMBOLO || entidade.getSimbolo() == Lobo.SIMBOLO)) {
-                jogador.tomarDano(1);
-                removeEntidade = entidade;
-            }
-            if (entidade.posicao.getX() == jogador.posicao.getX()
-                    && entidade.posicao.getY() == jogador.posicao.getY() && entidade.getSimbolo() == Chave.SIMBOLO) {
-                jogador.setChave();
-                removeEntidade = entidade;
-            }
-            if (entidade.posicao.getX() == jogador.posicao.getX()
-                    && entidade.posicao.getY() == jogador.posicao.getY() && entidade.getSimbolo() == Portal.SIMBOLO && jogador.temChave()) {
-                jogador.setAndar();
-                return 2;
 
+            // LOGICA DO ZUMBI COMENDO A GALERA
+            if (entidade.getSimbolo() == Zumbi.SIMBOLO) {
+                for (Entidade et : entidades) {
+                    if ((et.getSimbolo() == Ovelha.SIMBOLO || et.getSimbolo() == Lobo.SIMBOLO)) {
+                        if ((entidade.posicao.getX() == et.posicao.getX() && entidade.posicao.getY() == et.posicao.getY())) {
+                            removeEntidade = et;
+                        }
+                    }
+                }
+                if (entidade.posicao.getX() == jogador.posicao.getX()
+                        && entidade.posicao.getY() == jogador.posicao.getY()) {
+                    jogador.tomarDano(1);
+                    removeEntidade = entidade;
+                }
             }
-            if (entidade.posicao.getX() == jogador.posicao.getX()
-                    && entidade.posicao.getY() == jogador.posicao.getY() && entidade.getSimbolo() == Tesouro.SIMBOLO) {
-                jogador.setTesouro();
-                removeEntidade = entidade;
+            // ---------------------------------- FIM ----------------------------------
+
+            // LOGICA DO JOGADOR PEGAR A CHAVE OU O TESOURO
+            if (entidade.simbolo == Chave.SIMBOLO || entidade.simbolo == Tesouro.SIMBOLO) {
+                if (entidade.posicao.getX() == jogador.posicao.getX()
+                        && entidade.posicao.getY() == jogador.posicao.getY()) {
+                    if (entidade.simbolo == Chave.SIMBOLO) {
+                        jogador.setChave();
+
+                    } else {
+                        jogador.setTesouro();
+
+                    }
+                    removeEntidade = entidade;
+                }
             }
+            // ---------------------------------- FIM ----------------------------------
+
+            // LOGICA DO JOGADOR ENTRAR NO PORTAL
+            if (entidade.simbolo == Portal.SIMBOLO) {
+                if (entidade.posicao.getX() == jogador.posicao.getX()
+                        && entidade.posicao.getY() == jogador.posicao.getY() && jogador.temChave()) {
+                    jogador.setAndar();
+                    return 2;
+                }
+            }
+            // ---------------------------------- FIM ----------------------------------
 
         }
         entidades.remove(removeEntidade);
