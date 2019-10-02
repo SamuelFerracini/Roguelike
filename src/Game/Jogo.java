@@ -2,6 +2,7 @@ package Game;
 
 import Tools.MundoBuilder;
 import Characters.Jogador;
+import Class.Loja;
 import Class.Morte;
 import Map.Mundo;
 import Class.Ponto2D;
@@ -26,7 +27,7 @@ public class Jogo {
         int y = altura / 2;
         int passo = 2000;
 
-        jogador = new Jogador(3, new Ponto2D(x, y));
+        jogador = new Jogador(3, 3, 1, false,new Ponto2D(x, y));
         mundo = new MundoBuilder(largura, altura)
                 .preencher('#', true)
                 .criarCaminho(x, y, passo)
@@ -46,7 +47,7 @@ public class Jogo {
         aumentaDificuldade();
         qtdTesouro = new Random().nextInt(3);
 
-        jogador = new Jogador(jogador.getVidas(), new Ponto2D(x, y), jogador.getOuro(), jogador.getAndar(), jogador.getEscudo());
+        jogador = new Jogador(jogador.getVidas(), new Ponto2D(x, y), jogador.getOuro(), jogador.getAndar(), jogador.getEscudo(), jogador.getCoracoes());
         mundo = new MundoBuilder(largura, altura)
                 .preencher('#', true)
                 .criarCaminho(x, y, passo)
@@ -75,6 +76,9 @@ public class Jogo {
         while (jogador.vivo()) {
             mundo.desenhar();
             if(mundo.atualizar() == 2){
+                Loja loja = new Loja(jogador);
+                loja.mostraLoja();
+                loja.mostraProdutos();
                 sobeAndar();
             }
             clearScreen();

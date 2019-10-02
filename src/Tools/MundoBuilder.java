@@ -12,7 +12,7 @@ import Characters.Ovelha;
 import Characters.Lobo;
 import Entidades.Portal;
 import Class.Entidade;
-import Entidades.Chave;
+import Entidades.Runa;
 import Entidades.Tesouro;
 
 public class MundoBuilder {
@@ -119,7 +119,7 @@ public class MundoBuilder {
                 x = (int) (Math.random() * 1000 % largura);
                 y = (int) (Math.random() * 1000 % altura);
             } while (mapa[x][y].isBloqueado());
-            Entidade chave = new Chave(new Ponto2D(x, y)); 
+            Entidade chave = new Runa(new Ponto2D(x, y)); 
             entidades.add(chave);
             
             for (int i = 0; i < qtdTesouro; i++) {

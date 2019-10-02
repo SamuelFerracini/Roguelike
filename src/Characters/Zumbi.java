@@ -4,7 +4,7 @@ import Class.Entidade;
 import Map.Mundo;
 import Class.Ponto2D;
 import Class.Personagem;
-import Entidades.Chave;
+import Entidades.Runa;
 import Entidades.Portal;
 import Entidades.Tesouro;
 
@@ -24,7 +24,7 @@ public class Zumbi extends Personagem {
         Entidade alvo = new Entidade();
         //PROCURA O ALVO MAIS PROXIMO DO ZUMBI
         for (Entidade entidade : mundo.getEntidades()) {
-            if (entidade.getSimbolo() != this.SIMBOLO && entidade.getSimbolo() != Tesouro.SIMBOLO && entidade.getSimbolo() != Chave.SIMBOLO && entidade.getSimbolo() != Portal.SIMBOLO) {
+            if (entidade.getSimbolo() != this.SIMBOLO && entidade.getSimbolo() != Tesouro.SIMBOLO && entidade.getSimbolo() != Runa.SIMBOLO && entidade.getSimbolo() != Portal.SIMBOLO) {
                 if (diferenca > (Math.abs(this.posicao.getX() - entidade.posicao.getX()) + Math.abs(this.posicao.getY() - entidade.posicao.getY()))) {
                     alvo = entidade;
                     diferenca = (Math.abs(this.posicao.getX() - entidade.posicao.getX()) + Math.abs(this.posicao.getY() - entidade.posicao.getY()));

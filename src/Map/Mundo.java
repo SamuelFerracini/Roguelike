@@ -59,10 +59,10 @@ public class Mundo {
             // ---------------------------------- FIM ----------------------------------
 
             // LOGICA DO JOGADOR PEGAR A CHAVE OU O TESOURO
-            if (entidade.simbolo == Chave.SIMBOLO || entidade.simbolo == Tesouro.SIMBOLO) {
+            if (entidade.simbolo == Runa.SIMBOLO || entidade.simbolo == Tesouro.SIMBOLO) {
                 if (entidade.posicao.getX() == jogador.posicao.getX()
                         && entidade.posicao.getY() == jogador.posicao.getY()) {
-                    if (entidade.simbolo == Chave.SIMBOLO) {
+                    if (entidade.simbolo == Runa.SIMBOLO) {
                         jogador.setChave();
 
                     } else {
@@ -93,6 +93,7 @@ public class Mundo {
 
         // Criar um mapa de criaturas baseado em suas posições
         System.out.println("Vidas: " + jogador.getVidas());
+        System.out.println("Corações: " + jogador.getVidas());
         System.out.println("Escudo: " + jogador.getEscudo());
         System.out.println("Ouro: " + jogador.getOuro());
         System.out.println("Andar: " + jogador.getAndar());

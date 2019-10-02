@@ -3,12 +3,13 @@ package Characters;
 import Map.Mundo;
 import Class.*;
 import java.util.Scanner;
-import Entidades.Chave;
+import Entidades.Runa;
 
 public class Jogador extends Personagem {
 
     private int vidas;
     private int passos;
+    private int coracoes;
     private boolean temChave;
     private Scanner entrada;
     private int ouro;
@@ -16,26 +17,36 @@ public class Jogador extends Personagem {
     private int escudo;
     public static final char SIMBOLO = 'J';
 
-    public Jogador(int vidas, Ponto2D posicao) {
+    public Jogador(int vidas, int coracoes, int escudo, Boolean temChave, Ponto2D posicao) {
         super(posicao, SIMBOLO);
         this.vidas = vidas;
         this.passos = 0;
-        this.temChave = false;
-        this.ouro = 0;
+        this.temChave = temChave;
+        this.ouro = 1000000;
         this.andar = 1;
-        this.escudo = 1;
+        this.coracoes = coracoes;
+        this.escudo = escudo;
         this.entrada = new Scanner(System.in);
     }
+
+    public void setVidas(int vidas) {
+        this.vidas = vidas;
+    }
     
-    public Jogador(int vidas, Ponto2D posicao, int ouro, int andar, int escudo) {
+    public Jogador(int vidas, Ponto2D posicao, int ouro, int andar, int escudo, int coracoes) {
         super(posicao, 'J');
         this.vidas = vidas;
         this.passos = 0;
         this.temChave = false;
         this.escudo = escudo;
-        this.ouro = ouro;
+        this.ouro = 1000000;
         this.andar = andar;
         this.entrada = new Scanner(System.in);
+        this.coracoes = coracoes;
+    }
+
+    public void setOuro(int ouro) {
+        this.ouro = ouro;
     }
 
     public boolean temChave() {
@@ -43,6 +54,14 @@ public class Jogador extends Personagem {
             return true;
         }
         return false;
+    }
+
+    public void setCoracoes(int coracoes) {
+        this.coracoes = coracoes;
+    }
+
+    public int getCoracoes() {
+        return coracoes;
     }
 
     public boolean vivo() {

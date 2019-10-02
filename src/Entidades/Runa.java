@@ -4,12 +4,12 @@ import Class.Entidade;
 import Class.Ponto2D;
 import Map.Mundo;
 
-public class Chave extends Entidade{
+public class Runa extends Entidade{
     
-    public static final char SIMBOLO = 'C';
+    public static final char SIMBOLO = 'R';
     private boolean visivel;
     
-    public Chave(Ponto2D posicao) {
+    public Runa(Ponto2D posicao) {
         super(posicao, SIMBOLO);
         this.visivel = true;
     }

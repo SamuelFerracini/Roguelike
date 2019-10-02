@@ -18,7 +18,6 @@ public class Roguelike {
 //        jf.addKeyListener(new keyEvent());
 //        jf.setVisible(true);
         new Jogo().executar();
-//        new Loja().mostraLoja();
     }
     
 }

@@ -3,7 +3,7 @@ package Characters;
 import Class.Entidade;
 import Class.Personagem;
 import Class.Ponto2D;
-import Entidades.Chave;
+import Entidades.Runa;
 import Entidades.Portal;
 import Entidades.Tesouro;
 import Map.Mundo;
