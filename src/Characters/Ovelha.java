@@ -23,37 +23,6 @@ public class Ovelha extends Personagem{
     }
     
     
-//    @Override
-//    public void atualizar(Mundo mundo) {
-
-//        int somaOvelha = this.posicao.getX() + this.posicao.getY();
-//        int diferenca = 1000000;
-//        Entidade alvo = new Entidade();
-//
-//        for (Entidade entidade : mundo.getEntidades()) {
-//            if (entidade.getSimbolo() != Ovelha.SIMBOLO && entidade.getSimbolo() != Tesouro.SIMBOLO && entidade.getSimbolo() != Chave.SIMBOLO && entidade.getSimbolo() != Portal.SIMBOLO) {
-//                if (diferenca > Math.abs(entidade.posicao.getX() + entidade.posicao.getY() - somaOvelha)) {
-//                    alvo = entidade;
-//                    diferenca = Math.abs(entidade.posicao.getX() + entidade.posicao.getY() - somaOvelha);
-//                }
-//            }
-//        }
-//        
-//        if (Math.abs(alvo.posicao.getX() - this.posicao.getX()) != 0) {
-//            if (alvo.posicao.getX() < this.posicao.getX()) {
-//                mover(mundo, 1, 0);
-//            } else {
-//                mover(mundo, -1, 0);
-//            }
-//        } else {
-//            if (alvo.posicao.getY() < this.posicao.getY()) {
-//                mover(mundo, 0, 1);
-//            } else {
-//                mover(mundo, 0, -1);
-//            }
-//        }
-//    }
-
     @Override
     public void atualizar(Mundo mundo) {
 
