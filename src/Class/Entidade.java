@@ -52,6 +52,13 @@ public class Entidade {
          }
          return null;
      }
+      
+      protected Boolean verificaRange(Entidade alvo, int range){
+      if ((alvo.posicao.getX() >= (this.posicao.getX() - range) && alvo.posicao.getX() <= (this.posicao.getX() + range)) && (alvo.posicao.getY() >= (this.posicao.getY() - range) && alvo.posicao.getY() <= (this.posicao.getY() + range))){
+          return true;
+      }
+        return false;
+    }
      
     
 }

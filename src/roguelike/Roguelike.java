@@ -1,5 +1,6 @@
 package roguelike;
 
+import Class.Loja;
 import Game.Jogo;
 import Tools.keyEvent;
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class Roguelike {
 //        jf.addKeyListener(new keyEvent());
 //        jf.setVisible(true);
         new Jogo().executar();
+//        new Loja().mostraLoja();
     }
     
 }

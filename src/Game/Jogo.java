@@ -2,6 +2,7 @@ package Game;
 
 import Tools.MundoBuilder;
 import Characters.Jogador;
+import Class.Morte;
 import Map.Mundo;
 import Class.Ponto2D;
 import java.util.Random;
@@ -78,7 +79,7 @@ public class Jogo {
             }
             clearScreen();
         }
-        System.out.println("Você morreu!");
+        Morte.mostrarMorte();
     }
     
     private static void clearScreen() {  
