@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/samuel/NetBeansProjects/Roguelike/src/Game/Jogo.java</file>
-            <file>file:/home/samuel/NetBeansProjects/Roguelike/src/Tools/MundoBuilder.java</file>
-            <file>file:/home/samuel/NetBeansProjects/Roguelike/src/roguelike/Roguelike.java</file>
+            <file>file:/home/samuel/NetBeansProjects/Roguelike/src/Map/Celula.java</file>
+            <file>file:/home/samuel/NetBeansProjects/Roguelike/src/Map/Mundo.java</file>
+            <file>file:/home/samuel/NetBeansProjects/Roguelike/src/Characters/Zumbi.java</file>
+            <file>file:/home/samuel/NetBeansProjects/Roguelike/src/Characters/Lobo.java</file>
+            <file>file:/home/samuel/NetBeansProjects/Roguelike/src/Characters/Jogador.java</file>
+            <file>file:/home/samuel/NetBeansProjects/Roguelike/src/Class/Ponto2D.java</file>
+            <file>file:/home/samuel/NetBeansProjects/Roguelike/src/Class/Personagem.java</file>
         </group>
     </open-files>
 </project-private>
