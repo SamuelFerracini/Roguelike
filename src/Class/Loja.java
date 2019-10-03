@@ -59,7 +59,7 @@ public class Loja {
                 jogador.incrementaNivelEscudo(1);
                 break;
             case 4:
-//               jogador.setChave();
+               jogador.setTemRunaInfinita(true);
                 break;
             case 5:
                 jogador.setQtdOuro(valorGasto);

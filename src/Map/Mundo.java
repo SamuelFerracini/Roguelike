@@ -63,7 +63,7 @@ public class Mundo {
                 if (entidade.posicao.getX() == jogador.posicao.getX()
                         && entidade.posicao.getY() == jogador.posicao.getY()) {
                     if (entidade.simbolo == Runa.SIMBOLO) {
-                        jogador.setTemRuna();
+                        jogador.setTemRuna(true);
 
                     } else {
                         jogador.incrementaOuroAleatorio();
@@ -77,7 +77,7 @@ public class Mundo {
             // LOGICA DO JOGADOR ENTRAR NO PORTAL
             if (entidade.simbolo == Portal.SIMBOLO) {
                 if (entidade.posicao.getX() == jogador.posicao.getX()
-                        && entidade.posicao.getY() == jogador.posicao.getY() && jogador.isTemRuna()) {
+                        && entidade.posicao.getY() == jogador.posicao.getY() && (jogador.isTemRuna() || jogador.isTemRunaInfinita())) {
                     jogador.incrementaNivelAndar(1);
                     return 2;
                 }

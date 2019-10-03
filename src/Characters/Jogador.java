@@ -11,6 +11,7 @@ public class Jogador extends Personagem {
     private int qtdVidas;
     private int nivelVitalidade;
     private boolean temRuna;
+    private boolean temRunaInfinita;
     private int qtdEscudo;
     private int nivelEscudo;
     private int qtdOuro;
@@ -33,13 +34,22 @@ public class Jogador extends Personagem {
         this.entrada = new Scanner(System.in);
     }
 
-    public Jogador(int qtdVidas, int nivelVitalidade, Boolean temRuna, int qtdOuro, int nivelAndar, int nivelEscudo, Ponto2D posicao) {
+    public void setTemRunaInfinita(boolean temRunaInfinita) {
+        this.temRunaInfinita = temRunaInfinita;
+    }
+
+    public boolean isTemRunaInfinita() {
+        return temRunaInfinita;
+    }
+
+    public Jogador(int qtdVidas, int nivelVitalidade, Boolean temRuna, Boolean temRunaInfinita, int qtdOuro, int nivelAndar, int nivelEscudo, Ponto2D posicao) {
         super(posicao, SIMBOLO);
         this.qtdVidas = qtdVidas;
         this.nivelVitalidade = nivelVitalidade;
         this.passos = 2000;
         this.temRuna = temRuna;
         this.qtdOuro = qtdOuro;
+        this.temRunaInfinita = temRunaInfinita;
         this.nivelAndar = nivelAndar;
         this.nivelEscudo = nivelEscudo;
         this.qtdEscudo = nivelEscudo * 2;
@@ -86,8 +96,8 @@ public class Jogador extends Personagem {
         return this.temRuna;
     }
 
-    public void setTemRuna() {
-        this.temRuna = true;
+    public void setTemRuna(boolean valor) {
+        this.temRuna = valor;
     }
 
     public int getNivelAndar() {

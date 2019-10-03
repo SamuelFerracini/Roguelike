@@ -21,11 +21,7 @@ public class keyEvent implements KeyListener {
     @Override
     public void keyPressed(KeyEvent ke) {
         if (ke.getKeyCode() == KeyEvent.VK_W) {
-            try {
-                Runtime.getRuntime().exec("w");
-            } catch (IOException ex) {
-                Logger.getLogger(keyEvent.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            System.out.println("w");
         }
     }
 

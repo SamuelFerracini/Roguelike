@@ -47,7 +47,7 @@ public class Jogo {
         aumentaDificuldade();
         qtdTesouro = new Random().nextInt(3);
 
-        jogador = new Jogador(jogadorBuffado.getQtdVidas(), jogadorBuffado.getNivelVitalidade(), jogadorBuffado.isTemRuna(), jogadorBuffado.getQtdOuro(), jogadorBuffado.getNivelAndar(), jogadorBuffado.getNivelEscudo(), new Ponto2D(x, y));
+        jogador = new Jogador(jogadorBuffado.getQtdVidas(), jogadorBuffado.getNivelVitalidade(), jogadorBuffado.isTemRuna(), jogadorBuffado.isTemRunaInfinita(),jogadorBuffado.getQtdOuro(), jogadorBuffado.getNivelAndar(), jogadorBuffado.getNivelEscudo(), new Ponto2D(x, y));
         mundo = new MundoBuilder(largura, altura)
                 .preencher('#', true)
                 .criarCaminho(x, y, passo)
@@ -76,6 +76,7 @@ public class Jogo {
         while (jogador.vivo()) {
             mundo.desenhar();
             if(mundo.atualizar() == 2){
+                jogador.setTemRuna(false);
                 Loja loja = new Loja(jogador);
                 loja.mostraLoja();
                 Jogador jogadorBufado = loja.mostraProdutos();
