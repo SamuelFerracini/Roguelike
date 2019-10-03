@@ -27,7 +27,7 @@ public class Jogo {
         int y = altura / 2;
         int passo = 2000;
 
-        jogador = new Jogador(3, 3, 1, false,new Ponto2D(x, y));
+        jogador = new Jogador(new Ponto2D(x, y));
         mundo = new MundoBuilder(largura, altura)
                 .preencher('#', true)
                 .criarCaminho(x, y, passo)
@@ -38,8 +38,8 @@ public class Jogo {
         mundo.setJogador(jogador);
     }
 
-    public void sobeAndar() {
-
+    public void sobeAndar(Jogador jogadorBuffado) {
+        
         int x = largura / 2;
         int y = altura / 2;
         int passo = 2000;
@@ -47,7 +47,7 @@ public class Jogo {
         aumentaDificuldade();
         qtdTesouro = new Random().nextInt(3);
 
-        jogador = new Jogador(jogador.getVidas(), new Ponto2D(x, y), jogador.getOuro(), jogador.getAndar(), jogador.getEscudo(), jogador.getCoracoes());
+        jogador = new Jogador(jogadorBuffado.getQtdVidas(), jogadorBuffado.getNivelVitalidade(), jogadorBuffado.isTemRuna(), jogadorBuffado.getQtdOuro(), jogadorBuffado.getNivelAndar(), jogadorBuffado.getNivelEscudo(), new Ponto2D(x, y));
         mundo = new MundoBuilder(largura, altura)
                 .preencher('#', true)
                 .criarCaminho(x, y, passo)
@@ -59,10 +59,10 @@ public class Jogo {
     }
 
     void aumentaDificuldade() {
-        if (jogador.getAndar() % 5 == 0) {
-            this.qtdZumbi += (jogador.getAndar() / 5);
+        if (jogador.getNivelAndar()% 5 == 0) {
+            this.qtdZumbi += (jogador.getNivelAndar() / 5);
             this.qtdLobo += 1;
-            this.qtdOvelha += this.qtdZumbi + (jogador.getAndar() % 5);
+            this.qtdOvelha += this.qtdZumbi + (jogador.getNivelAndar() % 5);
         } else {
             this.qtdZumbi += 1;
             this.qtdLobo += 1;
@@ -78,8 +78,8 @@ public class Jogo {
             if(mundo.atualizar() == 2){
                 Loja loja = new Loja(jogador);
                 loja.mostraLoja();
-                loja.mostraProdutos();
-                sobeAndar();
+                Jogador jogadorBufado = loja.mostraProdutos();
+                sobeAndar(jogadorBufado);
             }
             clearScreen();
         }

@@ -23,7 +23,13 @@ public class Lobo extends Personagem{
 
         int diferenca = 10000;
         Entidade alvo = new Entidade();
-        //PROCURA O ALVO MAIS PROXIMO DO ZUMBI
+        
+        if(mundo.getEntidades().size() == 1){
+          moveAleatorio(mundo,QUANTIDADE_MOVIMENTOS);
+          return;
+        }
+        
+        
         for (Entidade entidade : mundo.getEntidades()) {
             if (entidade.getSimbolo() == Ovelha.SIMBOLO) {
                 if (diferenca > (Math.abs(this.posicao.getX() - entidade.posicao.getX()) + Math.abs(this.posicao.getY() - entidade.posicao.getY()))) {

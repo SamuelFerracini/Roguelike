@@ -11,8 +11,8 @@ import Map.Mundo;
 public class Ovelha extends Personagem{
     
     public static final char SIMBOLO = 'O';
-    private static final int RANGE = 5;
-    private static final int QUANTIDADE_PASSOS = 5;
+    private static final int QUANTIDADE_MOVIMENTOS = 5;
+        private static final int RANGE = 5;
     
     public Ovelha(Ponto2D posicao) {
         super(posicao, SIMBOLO);
@@ -26,7 +26,7 @@ public class Ovelha extends Personagem{
         Entidade alvo = new Entidade();
         //PROCURA O ALVO MAIS PROXIMO DO ZUMBI
         if(mundo.getEntidades().size() == 1){
-          moveAleatorio(mundo,QUANTIDADE_PASSOS);
+          moveAleatorio(mundo,QUANTIDADE_MOVIMENTOS);
           return;
         }
         
@@ -90,11 +90,8 @@ public class Ovelha extends Personagem{
             }
 
         } else {
-            moveAleatorio(mundo,QUANTIDADE_PASSOS);
+            moveAleatorio(mundo,QUANTIDADE_MOVIMENTOS);
         }
-        
-        
-        
     }
     
 }

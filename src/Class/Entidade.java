@@ -17,7 +17,6 @@ public class Entidade {
      public Entidade() {
        
     }
-    
 
     @Override
     public String toString() {

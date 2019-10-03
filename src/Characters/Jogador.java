@@ -7,72 +7,126 @@ import Entidades.Runa;
 
 public class Jogador extends Personagem {
 
-    private int vidas;
     private int passos;
-    private int coracoes;
-    private boolean temChave;
+    private int qtdVidas;
+    private int nivelVitalidade;
+    private boolean temRuna;
+    private int qtdEscudo;
+    private int nivelEscudo;
+    private int qtdOuro;
+    private int nivelAndar;
     private Scanner entrada;
-    private int ouro;
-    private int andar;
-    private int escudo;
     public static final char SIMBOLO = 'J';
 
-    public Jogador(int vidas, int coracoes, int escudo, Boolean temChave, Ponto2D posicao) {
+    // CRIA O JOGADOR A PRIMEIRA VEZ
+    public Jogador(Ponto2D posicao) {
         super(posicao, SIMBOLO);
-        this.vidas = vidas;
-        this.passos = 0;
-        this.temChave = temChave;
-        this.ouro = 1000000;
-        this.andar = 1;
-        this.coracoes = coracoes;
-        this.escudo = escudo;
+        this.qtdVidas = 3;
+        this.nivelVitalidade = 3;
+        this.passos = 2000;
+        this.temRuna = false;
+//        this.qtdOuro = 0;
+        this.qtdOuro = 1000000;
+        this.nivelAndar = 1;
+        this.nivelEscudo = 1;
+        this.qtdEscudo = nivelEscudo * 2;
         this.entrada = new Scanner(System.in);
     }
 
-    public void setVidas(int vidas) {
-        this.vidas = vidas;
+    public Jogador(int qtdVidas, int nivelVitalidade, Boolean temRuna, int qtdOuro, int nivelAndar, int nivelEscudo, Ponto2D posicao) {
+        super(posicao, SIMBOLO);
+        this.qtdVidas = qtdVidas;
+        this.nivelVitalidade = nivelVitalidade;
+        this.passos = 2000;
+        this.temRuna = temRuna;
+        this.qtdOuro = qtdOuro;
+        this.nivelAndar = nivelAndar;
+        this.nivelEscudo = nivelEscudo;
+        this.qtdEscudo = nivelEscudo * 2;
+        this.entrada = new Scanner(System.in);
+    }
+
+    public int getQtdVidas() {
+        return this.qtdVidas;
+    }
+
+    public void setQtdVidas(int qtdVidas) {
+        this.qtdVidas = qtdVidas;
     }
     
-    public Jogador(int vidas, Ponto2D posicao, int ouro, int andar, int escudo, int coracoes) {
-        super(posicao, 'J');
-        this.vidas = vidas;
-        this.passos = 0;
-        this.temChave = false;
-        this.escudo = escudo;
-        this.ouro = 1000000;
-        this.andar = andar;
-        this.entrada = new Scanner(System.in);
-        this.coracoes = coracoes;
+    public void incrementaQtdVidas(int qtdVidas) {
+        this.qtdVidas += qtdVidas;
     }
 
-    public void setOuro(int ouro) {
-        this.ouro = ouro;
+    public int getQtdOuro() {
+        return this.qtdOuro;
     }
 
-    public boolean temChave() {
-        if (temChave) {
-            return true;
-        }
-        return false;
+    public void setQtdOuro(int qtdOuro) {
+        this.qtdOuro = qtdOuro;
     }
 
-    public void setCoracoes(int coracoes) {
-        this.coracoes = coracoes;
+    public void incrementaOuroAleatorio() {
+        this.qtdOuro += (int) Math.round(Math.random() * 1000);
     }
 
-    public int getCoracoes() {
-        return coracoes;
+    public int getNivelVitalidade() {
+        return this.nivelVitalidade;
+    }
+
+    public void setNivelVitalidade(int nivelVitalidade) {
+        this.nivelVitalidade = nivelVitalidade;
+    }
+    
+    public void incrementaNivelVitalidade(int qtdNivelVitalidade) {
+        this.nivelVitalidade += qtdNivelVitalidade;
+    }
+
+    public boolean isTemRuna() {
+        return this.temRuna;
+    }
+
+    public void setTemRuna() {
+        this.temRuna = true;
+    }
+
+    public int getNivelAndar() {
+        return this.nivelAndar;
+    }
+
+    public void setNivelAndar(int nivelAndar) {
+        this.nivelAndar = nivelAndar;
+    }
+    
+    public void incrementaNivelAndar(int qtdNiveisAndar){
+        this.nivelAndar += qtdNiveisAndar;
+    }
+
+    public int getNivelEscudo() {
+        return this.nivelEscudo;
+    }
+    
+    public void setNivelEscudo(int nivelEscudo){
+        this.nivelEscudo = nivelEscudo;
+    }
+    
+    public void incrementaNivelEscudo(int qtdNiveisEscudo){
+    this.nivelEscudo += qtdNiveisEscudo;
+    }
+
+    public int getQtdEscudo() {
+        return this.qtdEscudo;
     }
 
     public boolean vivo() {
-        return vidas > 0;
+        return this.qtdVidas > 0;
     }
 
     public void tomarDano(int dano) {
-        if(escudo > 0){
-            escudo -= dano;
-        }else{
-                vidas -= dano;
+        if (qtdEscudo > 0) {
+            qtdEscudo -= dano;
+        } else {
+            qtdVidas -= dano;
         }
     }
 
@@ -92,44 +146,7 @@ public class Jogador extends Personagem {
         if (comando.toUpperCase().trim().equals("D")) {
             mover(mundo, 1, 0);
         }
-
         passos++;
-    }
-
-    public void setChave() {
-        temChave = true;
-    }
-
-    public String getChave() {
-        return Boolean.toString(temChave);
-    }
-
-    public void setTesouro() {
-        this.ouro += (int) Math.round(Math.random() * 1000);
-    }
-
-    public int getVidas() {
-        return this.vidas;
-    }
-
-    public int getOuro() {
-        return this.ouro;
-    }
-
-    public int getAndar() {
-        return this.andar;
-    }
-
-    public void setAndar() {
-        this.andar += 1;
-    }
-
-    public int getEscudo() {
-        return this.escudo;
-    }
-    
-    public void setEscudo(int valorEscudo){
-        this.escudo += valorEscudo;
     }
 
 }

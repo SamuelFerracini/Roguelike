@@ -7,7 +7,6 @@ import Class.Personagem;
 import Map.Celula;
 import java.util.ArrayList;
 import java.util.List;
-import Class.Criatura;
 import Characters.Ovelha;
 import Characters.Lobo;
 import Entidades.Portal;

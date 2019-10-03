@@ -12,68 +12,67 @@ public class Loja {
 
     public Loja(Jogador jogador) {
         this.jogador = jogador;
-        int valorEscudo = this.jogador.getEscudo() * 1500;
-        int valorCoracao = this.jogador.getCoracoes() * 750;
+        int valorEscudo = this.jogador.getNivelEscudo()* 1500;
+        int valorCoracao = this.jogador.getNivelVitalidade() * 750;
         this.produtos.add(new Produto("Poção de cura", 1, 1000));
         this.produtos.add(new Produto("Slot de coração", 1, valorCoracao));
         this.produtos.add(new Produto("Aprimorar escudo", 1, valorEscudo));
         this.produtos.add(new Produto("Runa infinita", 1, 10000));
         this.produtos.add(new Produto("God mode", 1, 20000));
-        
-
     }
 
-    public void mostraProdutos() {
+    public Jogador mostraProdutos() {
         int i = 1;
         for (Produto produto : this.produtos) {
             System.out.println(i + ". " + produto.toString());
             i++;
         }
-        System.out.println("Você comprar qual produto? (0 sair) ");
+        System.out.println("Você comprar qual produto? (0 - Sair) ");
         Scanner sc = new Scanner(System.in);
         int resposta = sc.nextInt();
         if (resposta == 0) {
-            return;
+            return jogador;
         }
         int posicaoProduto = resposta - 1;
         Produto produtoComprado = produtos.get(posicaoProduto);
-        if (jogador.getOuro() < produtoComprado.getPreco()) {
+        if (jogador.getQtdOuro()< produtoComprado.getPreco()) {
             System.out.println("Ouro insuficiente para comprar o produto");
-            return;
+            return jogador;
         }
-        int valorGasto = jogador.getOuro() - produtoComprado.getPreco();
+        int valorGasto = jogador.getQtdOuro() - produtoComprado.getPreco();
         switch (resposta) {
             case 1:
-                if(jogador.getVidas() == jogador.getCoracoes()){
-                    return;
+                if(jogador.getQtdVidas() == jogador.getNivelVitalidade()){
+                    return jogador;
                 }
-                jogador.setVidas(jogador.getVidas() + 1);
+                jogador.incrementaQtdVidas(1);
                 break;
             case 2:
-                jogador.setOuro(valorGasto);
-                jogador.setCoracoes(jogador.getCoracoes() + 1);
+                jogador.setQtdOuro(valorGasto);
+                jogador.incrementaNivelVitalidade(1);
                 break;
             case 3:
-                if(this.jogador.getEscudo() == 3){
-                    return;
+                if(this.jogador.getNivelEscudo()== 3){
+                    return jogador;
                 }
-                jogador.setOuro(valorGasto);
-                jogador.setEscudo(1);
+                jogador.setQtdOuro(valorGasto);
+                jogador.incrementaNivelEscudo(1);
                 break;
             case 4:
 //               jogador.setChave();
                 break;
             case 5:
-                jogador.setOuro(valorGasto);
-                jogador.setCoracoes(99999999);
-                jogador.setVidas(99999999);
+                jogador.setQtdOuro(valorGasto);
+                jogador.setNivelVitalidade(99999999);
+                jogador.setQtdVidas(99999999);
                 break;
         }
         System.out.println("Obrigado por comprar!");
-        return;
+        return jogador;
     }
 
     public void mostraLoja() {
+        Tools.Tools.clearScreen();
         System.out.println("      ('");
         System.out.println("        '|");
         System.out.println("        |'");
@@ -102,6 +101,5 @@ public class Loja {
         System.out.println("         |_|");
         System.out.println("         |_|");
         System.out.println("         |_|");
-
     }
 }

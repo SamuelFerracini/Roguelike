@@ -63,10 +63,10 @@ public class Mundo {
                 if (entidade.posicao.getX() == jogador.posicao.getX()
                         && entidade.posicao.getY() == jogador.posicao.getY()) {
                     if (entidade.simbolo == Runa.SIMBOLO) {
-                        jogador.setChave();
+                        jogador.setTemRuna();
 
                     } else {
-                        jogador.setTesouro();
+                        jogador.incrementaOuroAleatorio();
 
                     }
                     removeEntidade = entidade;
@@ -77,8 +77,8 @@ public class Mundo {
             // LOGICA DO JOGADOR ENTRAR NO PORTAL
             if (entidade.simbolo == Portal.SIMBOLO) {
                 if (entidade.posicao.getX() == jogador.posicao.getX()
-                        && entidade.posicao.getY() == jogador.posicao.getY() && jogador.temChave()) {
-                    jogador.setAndar();
+                        && entidade.posicao.getY() == jogador.posicao.getY() && jogador.isTemRuna()) {
+                    jogador.incrementaNivelAndar(1);
                     return 2;
                 }
             }
@@ -92,12 +92,13 @@ public class Mundo {
     public void desenhar() {
 
         // Criar um mapa de criaturas baseado em suas posições
-        System.out.println("Vidas: " + jogador.getVidas());
-        System.out.println("Corações: " + jogador.getVidas());
-        System.out.println("Escudo: " + jogador.getEscudo());
-        System.out.println("Ouro: " + jogador.getOuro());
-        System.out.println("Andar: " + jogador.getAndar());
-        System.out.println("Chave: " + jogador.getChave());
+        System.out.println("Vidas: " + jogador.getQtdVidas());
+        System.out.println("Corações: " + jogador.getNivelVitalidade());
+        System.out.println("Escudo: " + jogador.getQtdEscudo());
+        System.out.println("Nivel Escudo: " + jogador.getNivelEscudo());
+        System.out.println("Ouro: " + jogador.getQtdOuro());
+        System.out.println("Andar: " + jogador.getNivelAndar());
+        System.out.println("Chave: " + jogador.isTemRuna());
         Map<String, Entidade> map = new HashMap<>();
         for (Entidade entidade : entidades) {
             map.put(entidade.posicao.toString(), entidade);
