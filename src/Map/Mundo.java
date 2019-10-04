@@ -90,15 +90,26 @@ public class Mundo {
     }
 
     public void desenhar() {
-
+        Tools.Tools.clearScreen();
         // Criar um mapa de criaturas baseado em suas posições
-        System.out.println("Vidas: " + jogador.getQtdVidas());
-        System.out.println("Corações: " + jogador.getNivelVitalidade());
-        System.out.println("Escudo: " + jogador.getQtdEscudo());
-        System.out.println("Nivel Escudo: " + jogador.getNivelEscudo());
+        System.out.print("Vidas: "); 
+        for(int i=0; i<jogador.getQtdVidas(); i++){
+            System.out.print("♥ ");
+        }
+        for(int i=0; i<jogador.getNivelVitalidade() - jogador.getQtdVidas();i++){
+            System.out.print("♡ ");
+        }
+        System.out.print("Escudo: ");
+        for(int i=0; i<jogador.getQtdEscudo(); i++){
+        System.out.print("⍔ ");
+    }
+//        System.out.println("Nivel Escudo: " + jogador.getNivelEscudo());
         System.out.println("Ouro: " + jogador.getQtdOuro());
         System.out.println("Andar: " + jogador.getNivelAndar());
-        System.out.println("Chave: " + jogador.isTemRuna());
+        if(jogador.isTemRuna()){
+            System.out.println("㊯");
+        }
+//        System.out.println("Runa: " + jogador.isTemRuna());
         Map<String, Entidade> map = new HashMap<>();
         for (Entidade entidade : entidades) {
             map.put(entidade.posicao.toString(), entidade);

@@ -6,10 +6,38 @@ import Tools.keyEvent;
 import java.util.Scanner;
 import javax.swing.JFrame;
 
-
 public class Roguelike {
 
     public static void main(String[] args) {
+        Tools.Tools.mostraLogoJogo();
+        System.out.println("1 . Começar um novo jogo");
+        System.out.println("2 . Carregar um novo jogo");
+        System.out.println("3 . Leadboards");
+        System.out.println("4 . Sair");
+        System.out.println("5 . Créditos");
+        System.out.print("Resposta: ");
+        Scanner keyboard = new Scanner(System.in);
+        int resposta = keyboard.nextInt();
+        switch(resposta){
+            case 1:
+                new Jogo().executar();
+                break;
+            case 2:
+                // Carregar jogo
+                break;
+            case 3:
+                // Leadbords
+                break;
+            case 4:
+                break;
+            case 5:
+                //TEM QUE COLOCAR OS CREDITOS NESSA FUNC
+                Tools.Tools.mostrarCreditos();
+                break;
+                
+        }
+        
+
 //         JFrame jf = new JFrame("key event");
 //        jf.setSize(400, 400);
 //        
@@ -17,7 +45,6 @@ public class Roguelike {
 //        
 //        jf.addKeyListener(new keyEvent());
 //        jf.setVisible(true);
-        new Jogo().executar();
     }
-    
+
 }

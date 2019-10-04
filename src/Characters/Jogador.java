@@ -26,20 +26,11 @@ public class Jogador extends Personagem {
         this.nivelVitalidade = 3;
         this.passos = 2000;
         this.temRuna = false;
-//        this.qtdOuro = 0;
-        this.qtdOuro = 1000000;
+        this.qtdOuro = 999999999;
         this.nivelAndar = 1;
         this.nivelEscudo = 1;
         this.qtdEscudo = nivelEscudo * 2;
         this.entrada = new Scanner(System.in);
-    }
-
-    public void setTemRunaInfinita(boolean temRunaInfinita) {
-        this.temRunaInfinita = temRunaInfinita;
-    }
-
-    public boolean isTemRunaInfinita() {
-        return temRunaInfinita;
     }
 
     public Jogador(int qtdVidas, int nivelVitalidade, Boolean temRuna, Boolean temRunaInfinita, int qtdOuro, int nivelAndar, int nivelEscudo, Ponto2D posicao) {
@@ -63,7 +54,7 @@ public class Jogador extends Personagem {
     public void setQtdVidas(int qtdVidas) {
         this.qtdVidas = qtdVidas;
     }
-    
+
     public void incrementaQtdVidas(int qtdVidas) {
         this.qtdVidas += qtdVidas;
     }
@@ -87,7 +78,7 @@ public class Jogador extends Personagem {
     public void setNivelVitalidade(int nivelVitalidade) {
         this.nivelVitalidade = nivelVitalidade;
     }
-    
+
     public void incrementaNivelVitalidade(int qtdNivelVitalidade) {
         this.nivelVitalidade += qtdNivelVitalidade;
     }
@@ -107,21 +98,21 @@ public class Jogador extends Personagem {
     public void setNivelAndar(int nivelAndar) {
         this.nivelAndar = nivelAndar;
     }
-    
-    public void incrementaNivelAndar(int qtdNiveisAndar){
+
+    public void incrementaNivelAndar(int qtdNiveisAndar) {
         this.nivelAndar += qtdNiveisAndar;
     }
 
     public int getNivelEscudo() {
         return this.nivelEscudo;
     }
-    
-    public void setNivelEscudo(int nivelEscudo){
+
+    public void setNivelEscudo(int nivelEscudo) {
         this.nivelEscudo = nivelEscudo;
     }
-    
-    public void incrementaNivelEscudo(int qtdNiveisEscudo){
-    this.nivelEscudo += qtdNiveisEscudo;
+
+    public void incrementaNivelEscudo(int qtdNiveisEscudo) {
+        this.nivelEscudo += qtdNiveisEscudo;
     }
 
     public int getQtdEscudo() {
@@ -138,6 +129,14 @@ public class Jogador extends Personagem {
         } else {
             qtdVidas -= dano;
         }
+    }
+
+    public void setTemRunaInfinita(boolean temRunaInfinita) {
+        this.temRunaInfinita = temRunaInfinita;
+    }
+
+    public boolean isTemRunaInfinita() {
+        return temRunaInfinita;
     }
 
     @Override

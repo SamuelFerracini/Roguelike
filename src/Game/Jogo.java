@@ -1,11 +1,10 @@
 package Game;
 
-import Tools.MundoBuilder;
 import Characters.Jogador;
 import Class.Loja;
-import Class.Morte;
 import Map.Mundo;
 import Class.Ponto2D;
+import Tools.MundoBuilder;
 import java.util.Random;
 
 public class Jogo {
@@ -18,48 +17,29 @@ public class Jogo {
     private int qtdLobo = 1;
     private int qtdChave = 1;
     private int qtdTesouro = 1;
+    private int passo = 2000;
+    private int x = largura / 2;
+    private int y = altura / 2;
 
-    public Jogo() {    }
+    public Jogo() {
+    }
 
-    void criarMundo() {
-
-        int x = largura / 2;
-        int y = altura / 2;
-        int passo = 2000;
-
+    private void criarMundo() {
         jogador = new Jogador(new Ponto2D(x, y));
-        mundo = new MundoBuilder(largura, altura)
-                .preencher('#', true)
-                .criarCaminho(x, y, passo)
-                .criarCriaturas(qtdZumbi, qtdOvelha, qtdLobo)
-                .criaEntidades(qtdTesouro)
-                .build();
-
+        populaMapa(x, y, passo);
         mundo.setJogador(jogador);
     }
 
-    public void sobeAndar(Jogador jogadorBuffado) {
-        
-        int x = largura / 2;
-        int y = altura / 2;
-        int passo = 2000;
-        
+    private void sobeAndar(Jogador jogadorBuffado) {
         aumentaDificuldade();
-        qtdTesouro = new Random().nextInt(3);
-
-        jogador = new Jogador(jogadorBuffado.getQtdVidas(), jogadorBuffado.getNivelVitalidade(), jogadorBuffado.isTemRuna(), jogadorBuffado.isTemRunaInfinita(),jogadorBuffado.getQtdOuro(), jogadorBuffado.getNivelAndar(), jogadorBuffado.getNivelEscudo(), new Ponto2D(x, y));
-        mundo = new MundoBuilder(largura, altura)
-                .preencher('#', true)
-                .criarCaminho(x, y, passo)
-                .criarCriaturas(qtdZumbi, qtdOvelha, qtdLobo)
-                .criaEntidades(qtdTesouro)
-                .build();
-
+        jogador = new Jogador(jogadorBuffado.getQtdVidas(), jogadorBuffado.getNivelVitalidade(), jogadorBuffado.isTemRuna(), jogadorBuffado.isTemRunaInfinita(), jogadorBuffado.getQtdOuro(), jogadorBuffado.getNivelAndar(), jogadorBuffado.getNivelEscudo(), new Ponto2D(x, y));
+        populaMapa(x, y, passo);
         mundo.setJogador(jogador);
     }
 
-    void aumentaDificuldade() {
-        if (jogador.getNivelAndar()% 5 == 0) {
+    private void aumentaDificuldade() {
+        qtdTesouro = new Random().nextInt(3);
+        if (jogador.getNivelAndar() % 5 == 0) {
             this.qtdZumbi += (jogador.getNivelAndar() / 5);
             this.qtdLobo += 1;
             this.qtdOvelha += this.qtdZumbi + (jogador.getNivelAndar() % 5);
@@ -71,26 +51,29 @@ public class Jogo {
     }
 
     public void executar() {
-        clearScreen();
+        Tools.Tools.clearScreen();
         criarMundo();
         while (jogador.vivo()) {
             mundo.desenhar();
-            if(mundo.atualizar() == 2){
+            if (mundo.atualizar() == 2) {
                 jogador.setTemRuna(false);
                 Loja loja = new Loja(jogador);
                 loja.mostraLoja();
                 Jogador jogadorBufado = loja.mostraProdutos();
                 sobeAndar(jogadorBufado);
             }
-            clearScreen();
         }
-        Morte.mostrarMorte();
+        Tools.Tools.mostrarMorte();
+
     }
-    
-    private static void clearScreen() {  
-    System.out.print("\033[H\033[2J");  
-    System.out.flush();  
-   }
+
+    private void populaMapa(int x, int y, int passo) {
+        mundo = new MundoBuilder(largura, altura)
+                .preencher('#', true)
+                .criarCaminho(x, y, passo)
+                .criarCriaturas(qtdZumbi, qtdOvelha, qtdLobo)
+                .criaEntidades(qtdTesouro)
+                .build();
+    }
+
 }
-
-

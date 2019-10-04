@@ -12,6 +12,11 @@ public class Loja {
 
     public Loja(Jogador jogador) {
         this.jogador = jogador;
+        System.out.println("Ouro: " + jogador.getQtdOuro());
+        System.out.println("Vida: " + jogador.getQtdVidas());
+        System.out.println("Quantidade de slots de vida: " + jogador.getNivelVitalidade());
+        System.out.println("Nivel escudo: " + jogador.getNivelEscudo());
+        System.out.println("");
         int valorEscudo = this.jogador.getNivelEscudo()* 1500;
         int valorCoracao = this.jogador.getNivelVitalidade() * 750;
         this.produtos.add(new Produto("Poção de cura", 1, 1000));
@@ -72,7 +77,6 @@ public class Loja {
     }
 
     public void mostraLoja() {
-        Tools.Tools.clearScreen();
         System.out.println("      ('");
         System.out.println("        '|");
         System.out.println("        |'");

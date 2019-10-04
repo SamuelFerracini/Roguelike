@@ -10,7 +10,7 @@ import Entidades.Tesouro;
 
 public class Zumbi extends Personagem {
 
-    public static final char SIMBOLO = 'Z';
+    public static final char SIMBOLO = '〠';
     private static final int QUANTIDADE_MOVIMENTOS = 5;
     private static final int RANGE = 3;
 
