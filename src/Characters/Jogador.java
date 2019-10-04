@@ -4,10 +4,14 @@ import Map.Mundo;
 import Class.*;
 import java.util.Scanner;
 import Entidades.Runa;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Jogador extends Personagem {
 
     private int passos;
+    private String nome = "padrao";
     private int qtdVidas;
     private int nivelVitalidade;
     private boolean temRuna;
@@ -141,7 +145,7 @@ public class Jogador extends Personagem {
 
     @Override
     public void atualizar(Mundo mundo) {
-        System.out.print("[A/W/S/D]: ");
+        System.out.print("[A/W/S/D] - G(salvar): ");
         String comando = entrada.nextLine();
         if (comando.toUpperCase().trim().equals("A")) {
             mover(mundo, -1, 0);
@@ -155,7 +159,17 @@ public class Jogador extends Personagem {
         if (comando.toUpperCase().trim().equals("D")) {
             mover(mundo, 1, 0);
         }
+        if (comando.toUpperCase().trim().equals("G")) {
+            Tools.Tools.salvaDadosJogador(this);
+            System.out.println(Tools.Tools.importaDados());
+
+            return;
+        }
         passos++;
+    }
+
+    public String getNome() {
+        return this.nome;
     }
 
 }

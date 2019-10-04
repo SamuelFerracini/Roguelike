@@ -99,7 +99,7 @@ public class Mundo {
         for(int i=0; i<jogador.getNivelVitalidade() - jogador.getQtdVidas();i++){
             System.out.print("♡ ");
         }
-        System.out.print("Escudo: ");
+        System.out.print(" Escudo: ");
         for(int i=0; i<jogador.getQtdEscudo(); i++){
         System.out.print("⍔ ");
     }
@@ -107,7 +107,7 @@ public class Mundo {
         System.out.println("Ouro: " + jogador.getQtdOuro());
         System.out.println("Andar: " + jogador.getNivelAndar());
         if(jogador.isTemRuna()){
-            System.out.println("㊯");
+            System.out.println("R");
         }
 //        System.out.println("Runa: " + jogador.isTemRuna());
         Map<String, Entidade> map = new HashMap<>();

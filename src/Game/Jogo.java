@@ -29,6 +29,12 @@ public class Jogo {
         populaMapa(x, y, passo);
         mundo.setJogador(jogador);
     }
+    
+    private void criarMundo(Jogador jogador) {
+        jogador.setPosicao(new Ponto2D(x, y));
+        populaMapa(x, y, passo);
+        mundo.setJogador(jogador);
+    }
 
     private void sobeAndar(Jogador jogadorBuffado) {
         aumentaDificuldade();
@@ -53,6 +59,23 @@ public class Jogo {
     public void executar() {
         Tools.Tools.clearScreen();
         criarMundo();
+        while (jogador.vivo()) {
+            mundo.desenhar();
+            if (mundo.atualizar() == 2) {
+                jogador.setTemRuna(false);
+                Loja loja = new Loja(jogador);
+                loja.mostraLoja();
+                Jogador jogadorBufado = loja.mostraProdutos();
+                sobeAndar(jogadorBufado);
+            }
+        }
+        Tools.Tools.mostrarMorte();
+
+    }
+    
+    public void executar(Jogador jogador) {
+        Tools.Tools.clearScreen();
+        criarMundo(jogador);
         while (jogador.vivo()) {
             mundo.desenhar();
             if (mundo.atualizar() == 2) {

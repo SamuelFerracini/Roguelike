@@ -1,5 +1,6 @@
 package roguelike;
 
+import Characters.Jogador;
 import Class.Loja;
 import Game.Jogo;
 import Tools.keyEvent;
@@ -11,7 +12,7 @@ public class Roguelike {
     public static void main(String[] args) {
         Tools.Tools.mostraLogoJogo();
         System.out.println("1 . Começar um novo jogo");
-        System.out.println("2 . Carregar um novo jogo");
+        System.out.println("2 . Carregar jogo");
         System.out.println("3 . Leadboards");
         System.out.println("4 . Sair");
         System.out.println("5 . Créditos");
@@ -23,7 +24,8 @@ public class Roguelike {
                 new Jogo().executar();
                 break;
             case 2:
-                // Carregar jogo
+                Jogador jogadorImportado = Tools.Tools.importaDados();
+                new Jogo().executar(jogadorImportado);
                 break;
             case 3:
                 // Leadbords

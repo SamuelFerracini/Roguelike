@@ -8,12 +8,12 @@ import Entidades.Portal;
 import Entidades.Tesouro;
 import Map.Mundo;
 
-public class Lobo extends Personagem{
-    
+public class Lobo extends Personagem {
+
     public static final char SIMBOLO = 'L';
     private static final int RANGE = 7;
     private static final int QUANTIDADE_MOVIMENTOS = 10;
-    
+
     public Lobo(Ponto2D posicao) {
         super(posicao, SIMBOLO);
     }
@@ -23,20 +23,23 @@ public class Lobo extends Personagem{
 
         int diferenca = 10000;
         Entidade alvo = new Entidade();
-        
-        if(mundo.getEntidades().size() == 1){
-          moveAleatorio(mundo,QUANTIDADE_MOVIMENTOS);
-          return;
-        }
-        
-        
+
+        boolean naoTemOvelha = true;
         for (Entidade entidade : mundo.getEntidades()) {
             if (entidade.getSimbolo() == Ovelha.SIMBOLO) {
                 if (diferenca > (Math.abs(this.posicao.getX() - entidade.posicao.getX()) + Math.abs(this.posicao.getY() - entidade.posicao.getY()))) {
                     alvo = entidade;
                     diferenca = (Math.abs(this.posicao.getX() - entidade.posicao.getX()) + Math.abs(this.posicao.getY() - entidade.posicao.getY()));
                 }
+                naoTemOvelha = true;
+            } else {
+                naoTemOvelha = false;
+
             }
+        }
+
+        if (naoTemOvelha) {
+            moveAleatorio(mundo, QUANTIDADE_MOVIMENTOS);
         }
 
         if (verificaRange(alvo, RANGE)) {
@@ -78,7 +81,7 @@ public class Lobo extends Personagem{
                         mover(mundo, xHorizontal, yHorizontal);
                     }
                 }
-            //SE NAO TIVER VAGABUNDO NA RANGE ELE ANDA ALEATÓRIO
+                //SE NAO TIVER VAGABUNDO NA RANGE ELE ANDA ALEATÓRIO
             } else {
                 if (!mundo.bloqueado(this.posicao.getX() + xHorizontal, this.posicao.getY() + yHorizontal)) {
                     mover(mundo, xHorizontal, yHorizontal);
@@ -95,5 +98,5 @@ public class Lobo extends Personagem{
             moveAleatorio(mundo, QUANTIDADE_MOVIMENTOS);
         }
     }
-    
+
 }

@@ -6,7 +6,7 @@ import Map.Mundo;
 
 public class Runa extends Entidade{
     
-    public static final char SIMBOLO = '㊯';
+    public static final char SIMBOLO = 'R';
     private boolean visivel;
     
     public Runa(Ponto2D posicao) {
