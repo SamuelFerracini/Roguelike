@@ -30,7 +30,7 @@ public class Jogador extends Personagem {
         this.nivelVitalidade = 3;
         this.passos = 2000;
         this.temRuna = false;
-        this.qtdOuro = 999999999;
+        this.qtdOuro = 0;
         this.nivelAndar = 1;
         this.nivelEscudo = 1;
         this.qtdEscudo = nivelEscudo * 2;
@@ -48,6 +48,20 @@ public class Jogador extends Personagem {
         this.nivelAndar = nivelAndar;
         this.nivelEscudo = nivelEscudo;
         this.qtdEscudo = nivelEscudo * 2;
+        this.entrada = new Scanner(System.in);
+    }
+    
+    public Jogador(Jogador j) {
+        super(j.getPosicao(), j.getSimbolo());
+        this.qtdVidas = j.getQtdVidas();
+        this.nivelVitalidade = j.getNivelVitalidade();
+        this.passos = 2000;
+        this.temRuna = j.isTemRuna();
+        this.qtdOuro = j.getQtdOuro();
+        this.temRunaInfinita = j.isTemRunaInfinita();
+        this.nivelAndar = j.getNivelAndar();
+        this.nivelEscudo = j.getNivelEscudo();
+        this.qtdEscudo = j.getNivelEscudo() * 2;
         this.entrada = new Scanner(System.in);
     }
 

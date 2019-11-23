@@ -38,7 +38,7 @@ public class Jogo {
 
     private void sobeAndar(Jogador jogadorBuffado) {
         aumentaDificuldade();
-        jogador = new Jogador(jogadorBuffado.getQtdVidas(), jogadorBuffado.getNivelVitalidade(), jogadorBuffado.isTemRuna(), jogadorBuffado.isTemRunaInfinita(), jogadorBuffado.getQtdOuro(), jogadorBuffado.getNivelAndar(), jogadorBuffado.getNivelEscudo(), new Ponto2D(x, y));
+        jogador = new Jogador(jogadorBuffado);
         populaMapa(x, y, passo);
         mundo.setJogador(jogador);
     }
