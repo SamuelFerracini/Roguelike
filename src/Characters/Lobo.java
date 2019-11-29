@@ -17,29 +17,25 @@ public class Lobo extends Personagem {
     public Lobo(Ponto2D posicao) {
         super(posicao, SIMBOLO);
     }
-
-    @Override
-    public void atualizar(Mundo mundo) {
-
-        int diferenca = 10000;
+    
+    private void move(Mundo mundo){
+    int diferenca = 10000;
         Entidade alvo = new Entidade();
 
         boolean naoTemOvelha = true;
-        for (Entidade entidade : mundo.getEntidades()) {
-            if (entidade.getSimbolo() == Ovelha.SIMBOLO) {
-                if (diferenca > (Math.abs(this.posicao.getX() - entidade.posicao.getX()) + Math.abs(this.posicao.getY() - entidade.posicao.getY()))) {
-                    alvo = entidade;
-                    diferenca = (Math.abs(this.posicao.getX() - entidade.posicao.getX()) + Math.abs(this.posicao.getY() - entidade.posicao.getY()));
-                }
-                naoTemOvelha = true;
-            } else {
+        for (Personagem personagem : mundo.getPersonagens()) {
+            if (personagem.getSimbolo() == Ovelha.SIMBOLO) {
                 naoTemOvelha = false;
-
-            }
+                if (diferenca > (Math.abs(this.posicao.getX() - personagem.posicao.getX()) + Math.abs(this.posicao.getY() - personagem.posicao.getY()))) {
+                    alvo = personagem;
+                    diferenca = (Math.abs(this.posicao.getX() - personagem.posicao.getX()) + Math.abs(this.posicao.getY() - personagem.posicao.getY()));
+                }
+            } 
         }
 
         if (naoTemOvelha) {
             moveAleatorio(mundo, QUANTIDADE_MOVIMENTOS);
+            return;
         }
 
         if (verificaRange(alvo, RANGE)) {
@@ -97,6 +93,23 @@ public class Lobo extends Personagem {
         } else {
             moveAleatorio(mundo, QUANTIDADE_MOVIMENTOS);
         }
+    }
+
+    @Override
+    public Personagem atualizar(Mundo mundo) {
+        move(mundo);
+        for (Personagem personagem : mundo.getPersonagens()) {
+
+            if ((personagem.getSimbolo() == Ovelha.SIMBOLO )) {
+                if ((this.posicao.getX() == personagem.posicao.getX() && this.posicao.getY() == personagem.posicao.getY())) {
+                    return personagem;
+                }
+            }
+
+        }
+         return null;
+        
+        
     }
 
 }

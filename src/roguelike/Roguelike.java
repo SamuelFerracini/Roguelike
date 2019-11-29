@@ -3,7 +3,6 @@ package roguelike;
 import Characters.Jogador;
 import Class.Loja;
 import Game.Jogo;
-import Tools.keyEvent;
 import java.util.Scanner;
 import javax.swing.JFrame;
 
@@ -33,19 +32,12 @@ public class Roguelike {
             case 4:
                 break;
             case 5:
-                //TEM QUE COLOCAR OS CREDITOS NESSA FUNC
+                
                 Tools.Tools.mostrarCreditos();
                 break;
                 
         }
-        
-//         JFrame jf = new JFrame("key event");
-//        jf.setSize(400, 400);
-//        
-//        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        
-//        jf.addKeyListener(new keyEvent());
-//        jf.setVisible(true);
+
     }
 
 }

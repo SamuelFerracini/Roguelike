@@ -7,28 +7,39 @@ import java.util.Map;
 import Characters.*;
 import Class.*;
 import Entidades.*;
+import Class.Personagem;
+import java.util.ArrayList;
 
 public class Mundo {
 
     private Celula[][] mapa;
-    private List<Entidade> entidades;
+    private List<Personagem> personagens;
     private Jogador jogador;
+    private int estado = 1; //  1 game -- 2 loja
 
     public void setJogador(Jogador jogador) {
         this.jogador = jogador;
     }
 
-    public Mundo(Celula[][] mapa, List<Entidade> entidades) {
+    public int getEstado() {
+        return this.estado;
+    }
+
+    public void setEstado(int valor) {
+        this.estado = valor;
+    }
+
+    public Mundo(Celula[][] mapa, List<Personagem> personagens) {
         this.mapa = mapa;
-        this.entidades = entidades;
+        this.personagens = personagens;
     }
 
     public boolean bloqueado(int x, int y) {
         return this.mapa[x][y].isBloqueado();
     }
 
-    public List<Entidade> getEntidades() {
-        return this.entidades;
+    public List<Personagem> getPersonagens() {
+        return this.personagens;
     }
 
     public Jogador getJogador() {
@@ -37,81 +48,46 @@ public class Mundo {
 
     public int atualizar() {
         jogador.atualizar(this);
-        Entidade removeEntidade = new Entidade();
-        for (Entidade entidade : entidades) {
-            entidade.atualizar(this);
-
-            // LOGICA DO ZUMBI COMENDO A GALERA
-            if (entidade.getSimbolo() == Zumbi.SIMBOLO) {
-                for (Entidade et : entidades) {
-                    if ((et.getSimbolo() == Ovelha.SIMBOLO || et.getSimbolo() == Lobo.SIMBOLO)) {
-                        if ((entidade.posicao.getX() == et.posicao.getX() && entidade.posicao.getY() == et.posicao.getY())) {
-                            removeEntidade = et;
-                        }
-                    }
-                }
-                if (entidade.posicao.getX() == jogador.posicao.getX()
-                        && entidade.posicao.getY() == jogador.posicao.getY()) {
-                    jogador.tomarDano(1);
-                    removeEntidade = entidade;
-                }
+        List<Personagem> removeList = new ArrayList<Personagem>();
+        Personagem tempPersonagem;
+        for (Personagem personagem : personagens) {
+            tempPersonagem = personagem.atualizar(this);
+            if (tempPersonagem != null) {
+                removeList.add(tempPersonagem);
             }
-            // ---------------------------------- FIM ----------------------------------
-
-            // LOGICA DO JOGADOR PEGAR A CHAVE OU O TESOURO
-            if (entidade.simbolo == Runa.SIMBOLO || entidade.simbolo == Tesouro.SIMBOLO) {
-                if (entidade.posicao.getX() == jogador.posicao.getX()
-                        && entidade.posicao.getY() == jogador.posicao.getY()) {
-                    if (entidade.simbolo == Runa.SIMBOLO) {
-                        jogador.setTemRuna(true);
-
-                    } else {
-                        jogador.incrementaOuroAleatorio();
-
-                    }
-                    removeEntidade = entidade;
-                }
-            }
-            // ---------------------------------- FIM ----------------------------------
-
-            // LOGICA DO JOGADOR ENTRAR NO PORTAL
-            if (entidade.simbolo == Portal.SIMBOLO) {
-                if (entidade.posicao.getX() == jogador.posicao.getX()
-                        && entidade.posicao.getY() == jogador.posicao.getY() && (jogador.isTemRuna() || jogador.isTemRunaInfinita())) {
-                    jogador.incrementaNivelAndar(1);
-                    return 2;
-                }
-            }
-            // ---------------------------------- FIM ----------------------------------
-
         }
-        entidades.remove(removeEntidade);
+        personagens.removeAll(removeList);
         return 0;
     }
 
     public void desenhar() {
         Tools.Tools.clearScreen();
         // Criar um mapa de criaturas baseado em suas posições
-        System.out.print("Vidas: "); 
-        for(int i=0; i<jogador.getQtdVidas(); i++){
-            System.out.print("♥ ");
+        System.out.print("Vidas: ");
+        if (jogador.getQtdVidas() >= 5) {
+            System.out.print("GOD MODE");
+        } else {
+            for (int i = 0; i < jogador.getQtdVidas(); i++) {
+                System.out.print("♥ ");
+            }
+            for (int i = 0; i < jogador.getNivelVitalidade() - jogador.getQtdVidas(); i++) {
+                System.out.print("♡ ");
+            }
+            System.out.print(" Escudo: ");
+            for (int i = 0; i < jogador.getQtdEscudo(); i++) {
+                System.out.print("⍔ ");
+            }
         }
-        for(int i=0; i<jogador.getNivelVitalidade() - jogador.getQtdVidas();i++){
-            System.out.print("♡ ");
-        }
-        System.out.print(" Escudo: ");
-        for(int i=0; i<jogador.getQtdEscudo(); i++){
-        System.out.print("⍔ ");
-    }
+
 //        System.out.println("Nivel Escudo: " + jogador.getNivelEscudo());
         System.out.println("Ouro: " + jogador.getQtdOuro());
         System.out.println("Andar: " + jogador.getNivelAndar());
-        if(jogador.isTemRuna()){
+        if (jogador.isTemRuna()) {
             System.out.println("R");
         }
 //        System.out.println("Runa: " + jogador.isTemRuna());
         Map<String, Entidade> map = new HashMap<>();
-        for (Entidade entidade : entidades) {
+        for (Entidade entidade : personagens) {
             map.put(entidade.posicao.toString(), entidade);
         }
 

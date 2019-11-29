@@ -81,7 +81,6 @@ public class Tools {
     public static void salvaDadosJogador(Jogador jogador) {
         try {
             FileWriter writer = new FileWriter("dadosJogador.txt");
-//            writer.write(jogador.getNome() + ";");
             writer.write(jogador.getQtdVidas() + ";");
             writer.write(jogador.getNivelVitalidade() + ";");
             writer.write(jogador.getQtdOuro() + ";");

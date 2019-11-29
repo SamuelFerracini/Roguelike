@@ -18,26 +18,36 @@ public class Ovelha extends Personagem{
         super(posicao, SIMBOLO);
     }
     
+    private void move(Mundo mundo){
     
-    @Override
-    public void atualizar(Mundo mundo) {
-
         int diferenca = 10000;
         Entidade alvo = new Entidade();
         //PROCURA O ALVO MAIS PROXIMO DO ZUMBI
-        if(mundo.getEntidades().size() == 1){
-          moveAleatorio(mundo,QUANTIDADE_MOVIMENTOS);
-          return;
-        }
-        
-        for (Entidade entidade : mundo.getEntidades()) {
+//        if(mundo.getEntidades().size() == 1){
+//          moveAleatorio(mundo,QUANTIDADE_MOVIMENTOS);
+//          return;
+//        }
+        boolean naoTemPredador = true;
+        for (Entidade entidade : mundo.getPersonagens()) {
             if (entidade.getSimbolo() == Lobo.SIMBOLO || entidade.getSimbolo() == Zumbi.SIMBOLO) {
+                naoTemPredador = false;
                 if (diferenca > (Math.abs(this.posicao.getX() - entidade.posicao.getX()) + Math.abs(this.posicao.getY() - entidade.posicao.getY()))) {
                     alvo = entidade;
                     diferenca = (Math.abs(this.posicao.getX() - entidade.posicao.getX()) + Math.abs(this.posicao.getY() - entidade.posicao.getY()));
                 }
             }
         }
+        
+         if (naoTemPredador) {
+            moveAleatorio(mundo, QUANTIDADE_MOVIMENTOS);
+            return;
+        }
+        
+        if(mundo.getPersonagens().size() == 1){
+          moveAleatorio(mundo,QUANTIDADE_MOVIMENTOS);
+          return;
+        }
+        
         
         if (verificaRange(alvo, RANGE)) {
             int xHorizontal, yHorizontal;
@@ -92,6 +102,14 @@ public class Ovelha extends Personagem{
         } else {
             moveAleatorio(mundo,QUANTIDADE_MOVIMENTOS);
         }
+        
+    }
+    
+    
+    @Override
+    public Personagem atualizar(Mundo mundo) {
+        move(mundo);
+        return null;
     }
     
 }

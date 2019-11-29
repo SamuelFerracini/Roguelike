@@ -18,12 +18,11 @@ public class Zumbi extends Personagem {
         super(posicao, SIMBOLO);
     }
 
-    @Override
-    public void atualizar(Mundo mundo) {
+    private void move(Mundo mundo) {
         int diferenca = 10000;
         Entidade alvo = new Entidade();
         //PROCURA O ALVO MAIS PROXIMO DO ZUMBI
-        for (Entidade entidade : mundo.getEntidades()) {
+        for (Entidade entidade : mundo.getPersonagens()) {
             if (entidade.getSimbolo() != this.SIMBOLO && entidade.getSimbolo() != Tesouro.SIMBOLO && entidade.getSimbolo() != Runa.SIMBOLO && entidade.getSimbolo() != Portal.SIMBOLO) {
                 if (diferenca > (Math.abs(this.posicao.getX() - entidade.posicao.getX()) + Math.abs(this.posicao.getY() - entidade.posicao.getY()))) {
                     alvo = entidade;
@@ -76,7 +75,7 @@ public class Zumbi extends Personagem {
                         mover(mundo, xHorizontal, yHorizontal);
                     }
                 }
-            //SE NAO TIVER VAGABUNDO NA RANGE ELE ANDA ALEATÓRIO
+                //SE ESTIVER BLOQUEADO ELE ANDA ALEATÓRIO
             } else {
                 if (!mundo.bloqueado(this.posicao.getX() + xHorizontal, this.posicao.getY() + yHorizontal)) {
                     mover(mundo, xHorizontal, yHorizontal);
@@ -92,9 +91,27 @@ public class Zumbi extends Personagem {
         } else {
             moveAleatorio(mundo, QUANTIDADE_MOVIMENTOS);
         }
-
     }
-    
-    
+
+    @Override
+    public Personagem atualizar(Mundo mundo) {
+        move(mundo);
+
+        if ((this.posicao.getX() == mundo.getJogador().posicao.getX() && this.posicao.getY() == mundo.getJogador().posicao.getY())) {
+            mundo.getJogador().tomarDano(1);
+            return this;
+        }
+
+        for (Personagem personagem : mundo.getPersonagens()) {
+
+            if ((personagem.getSimbolo() == Ovelha.SIMBOLO || personagem.getSimbolo() == Lobo.SIMBOLO)) {
+                if ((this.posicao.getX() == personagem.posicao.getX() && this.posicao.getY() == personagem.posicao.getY())) {
+                    return personagem;
+                }
+            }
+
+        }
+        return null;
+    }
 
 }

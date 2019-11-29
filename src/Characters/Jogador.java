@@ -38,7 +38,9 @@ public class Jogador extends Personagem {
     }
 
     public Jogador(int qtdVidas, int nivelVitalidade, Boolean temRuna, Boolean temRunaInfinita, int qtdOuro, int nivelAndar, int nivelEscudo, Ponto2D posicao) {
-        super(posicao, SIMBOLO);
+        super();
+        this.posicao = new Ponto2D(50, 15);
+        this.simbolo = 'J';
         this.qtdVidas = qtdVidas;
         this.nivelVitalidade = nivelVitalidade;
         this.passos = 2000;
@@ -50,16 +52,18 @@ public class Jogador extends Personagem {
         this.qtdEscudo = nivelEscudo * 2;
         this.entrada = new Scanner(System.in);
     }
-    
+
     public Jogador(Jogador j) {
-        super(j.getPosicao(), j.getSimbolo());
+        super();
+        this.posicao = new Ponto2D(50, 15);
+        this.simbolo = 'J';
         this.qtdVidas = j.getQtdVidas();
         this.nivelVitalidade = j.getNivelVitalidade();
         this.passos = 2000;
         this.temRuna = j.isTemRuna();
         this.qtdOuro = j.getQtdOuro();
         this.temRunaInfinita = j.isTemRunaInfinita();
-        this.nivelAndar = j.getNivelAndar();
+        this.nivelAndar = j.getNivelAndar() + 1;
         this.nivelEscudo = j.getNivelEscudo();
         this.qtdEscudo = j.getNivelEscudo() * 2;
         this.entrada = new Scanner(System.in);
@@ -142,10 +146,10 @@ public class Jogador extends Personagem {
     }
 
     public void tomarDano(int dano) {
-        if (qtdEscudo > 0) {
-            qtdEscudo -= dano;
+        if (this.qtdEscudo > 0) {
+            this.qtdEscudo -= dano;
         } else {
-            qtdVidas -= dano;
+            this.qtdVidas -= dano;
         }
     }
 
@@ -158,7 +162,7 @@ public class Jogador extends Personagem {
     }
 
     @Override
-    public void atualizar(Mundo mundo) {
+    public Personagem atualizar(Mundo mundo) {
         System.out.print("[A/W/S/D] - G(salvar): ");
         String comando = entrada.nextLine();
         if (comando.toUpperCase().trim().equals("A")) {
@@ -177,9 +181,12 @@ public class Jogador extends Personagem {
             Tools.Tools.salvaDadosJogador(this);
             System.out.println(Tools.Tools.importaDados());
 
-            return;
+            return null;
         }
+
         passos++;
+        return null;
+
     }
 
     public String getNome() {

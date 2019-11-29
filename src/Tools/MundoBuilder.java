@@ -18,7 +18,7 @@ public class MundoBuilder {
 
     public final int largura, altura;
     public Celula[][] mapa;
-    public List<Entidade> entidades = new ArrayList<>();
+    public List<Personagem> personagens = new ArrayList<>();
 
     public MundoBuilder(int largura, int altura) {
         this.largura = largura;
@@ -73,8 +73,8 @@ public class MundoBuilder {
             } while (mapa[x][y].isBloqueado());
 
             // Adiciona a criatura na lista de criaturas
-            Entidade zumbi = new Zumbi(new Ponto2D(x, y)); 
-            entidades.add(zumbi);
+            Personagem zumbi = new Zumbi(new Ponto2D(x, y)); 
+            personagens.add(zumbi);
         }
         for (int i = 0; i < qtdOvelha; i++) {
 
@@ -85,8 +85,8 @@ public class MundoBuilder {
             } while (mapa[x][y].isBloqueado());
 
             // Adiciona a criatura na lista de criaturas
-            Entidade ovelha = new Ovelha(new Ponto2D(x, y)); 
-            entidades.add(ovelha);
+            Personagem ovelha = new Ovelha(new Ponto2D(x, y)); 
+            personagens.add(ovelha);
         }
         
         for (int i = 0; i < qtdLobo; i++) {
@@ -98,8 +98,8 @@ public class MundoBuilder {
             } while (mapa[x][y].isBloqueado());
 
             // Adiciona a criatura na lista de criaturas
-            Entidade lobo = new Lobo(new Ponto2D(x, y)); 
-            entidades.add(lobo);
+            Personagem lobo = new Lobo(new Ponto2D(x, y)); 
+            personagens.add(lobo);
         }
         return this;
     }
@@ -111,15 +111,16 @@ public class MundoBuilder {
                 y = (int) (Math.random() * 1000 % altura);
             } while (mapa[x][y].isBloqueado());
 
-            Entidade portal = new Portal(new Ponto2D(x, y)); 
+            Personagem portal = new Portal(new Ponto2D(x, y)); 
+            personagens.add(portal);
             
-            entidades.add(portal);
             do {
                 x = (int) (Math.random() * 1000 % largura);
                 y = (int) (Math.random() * 1000 % altura);
             } while (mapa[x][y].isBloqueado());
-            Entidade chave = new Runa(new Ponto2D(x, y)); 
-            entidades.add(chave);
+            
+            Personagem chave = new Runa(new Ponto2D(x, y)); 
+            personagens.add(chave);
             
             for (int i = 0; i < qtdTesouro; i++) {
 
@@ -130,13 +131,13 @@ public class MundoBuilder {
             } while (mapa[x][y].isBloqueado());
 
             // Adiciona a criatura na lista de criaturas
-            Entidade tesouro = new Tesouro(new Ponto2D(x, y)); 
-            entidades.add(tesouro);
+            Personagem tesouro = new Tesouro(new Ponto2D(x, y)); 
+            personagens.add(tesouro);
         }
         return this;
     }
     
     public Mundo build() {
-        return new Mundo(mapa, entidades);
+        return new Mundo(mapa, personagens);
     }
 }

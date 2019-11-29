@@ -25,7 +25,7 @@ public class Jogo {
     }
 
     private void criarMundo() {
-        jogador = new Jogador(new Ponto2D(x, y));
+        jogador = new Jogador(new Ponto2D(50, 15));
         populaMapa(x, y, passo);
         mundo.setJogador(jogador);
     }
@@ -61,12 +61,14 @@ public class Jogo {
         criarMundo();
         while (jogador.vivo()) {
             mundo.desenhar();
-            if (mundo.atualizar() == 2) {
+            mundo.atualizar();
+             if (mundo.getEstado() == 2) {
                 jogador.setTemRuna(false);
                 Loja loja = new Loja(jogador);
                 loja.mostraLoja();
                 Jogador jogadorBufado = loja.mostraProdutos();
                 sobeAndar(jogadorBufado);
+                mundo.setEstado(1);
             }
         }
         Tools.Tools.mostrarMorte();
@@ -78,12 +80,14 @@ public class Jogo {
         criarMundo(jogador);
         while (jogador.vivo()) {
             mundo.desenhar();
-            if (mundo.atualizar() == 2) {
+            mundo.atualizar();
+            if (mundo.getEstado() == 2) {
                 jogador.setTemRuna(false);
                 Loja loja = new Loja(jogador);
                 loja.mostraLoja();
                 Jogador jogadorBufado = loja.mostraProdutos();
                 sobeAndar(jogadorBufado);
+                mundo.setEstado(1);
             }
         }
         Tools.Tools.mostrarMorte();
@@ -97,6 +101,8 @@ public class Jogo {
                 .criarCriaturas(qtdZumbi, qtdOvelha, qtdLobo)
                 .criaEntidades(qtdTesouro)
                 .build();
+        
+        
     }
 
 }

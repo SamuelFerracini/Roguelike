@@ -38,11 +38,7 @@ public class Entidade {
     public void setSimbolo(char simbolo) {
         this.simbolo = simbolo;
     }
-    
-     public void atualizar(Mundo mundo) {
-         
-    }
-     
+
       public Entidade retornaEntidade(List<Entidade>entidades, char simbolo){
          for(Entidade entidade : entidades){
              if(entidade.getSimbolo() == simbolo){
